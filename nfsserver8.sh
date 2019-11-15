@@ -22,9 +22,6 @@ rm /var/www/html/wordpress
 #Cambiamos el propietario del repositorio
 chown www-data:www-data * -R
 
-#Entramos en la carpeta de wordpress 
-cd wordpress
-
 #Cambiamos el nombre del archivo que se ve en primer lugar por el segundo.
 mv wp-config-sample.php wp-config.php
 
@@ -53,21 +50,21 @@ echo "/var/www/html/wordpress      3.94.10.1(rw,sync,no_root_squash,no_subtree_c
 # Security Keys
 
 #Borramos las keys 
-sed -i '/AUTH_KEY/d' /var/www/html/wordpress/wp-config.php
-sed -i '/LOGGED_IN_KEY/d' /var/www/html/wordpress/wp-config.php
-sed -i '/NONCE_KEY/d' /var/www/html/wordpress/wp-config.php
-sed -i '/AUTH_SALT/d' /var/www/html/wordpress/wp-config.php
-sed -i '/SECURE_AUTH_SALT/d' /var/www/html/wordpress/wp-config.php
-sed -i '/LOGGED_IN_SALT/d' /var/www/html/wordpress/wp-config.php
-sed -i '/NONCE_SALT/d' /var/www/html/wordpress/wp-config.php
+sed -i '/AUTH_KEY/d' /var/www/html/wp-config.php
+sed -i '/LOGGED_IN_KEY/d' /var/www/html/wp-config.php
+sed -i '/NONCE_KEY/d' /var/www/html/wp-config.php
+sed -i '/AUTH_SALT/d' /var/www/html/wp-config.php
+sed -i '/SECURE_AUTH_SALT/d' /var/www/html/wp-config.php
+sed -i '/LOGGED_IN_SALT/d' /var/www/html/wp-config.php
+sed -i '/NONCE_SALT/d' /var/www/html/wp-config.php
 
 #Añadimos las keys
 CLAVES=$(curl https://api.wordpress.org/secret-key/1.1/salt/)
 CLAVES=$(echo $CLAVES | tr / _)
-sed -i "/#@-/a $CLAVES" /var/html/wordpress/wp-config.php
+sed -i "/#@-/a $CLAVES" /var/html/wp-config.php
 
 #Cambiamos los permisos al directorio que vamos a compartir:
-chown nobody:nogroup /var/www/html/wordpress
+chown nobody:nogroup /var/www/html/
 
 #Reiniciamos el servicio nfs
 /etc/init.d/nfs-kernel-server restart
