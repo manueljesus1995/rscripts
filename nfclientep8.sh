@@ -5,6 +5,10 @@ set -x
 apt-get update
 apt-get install nfs-common -y
 
+#Creamos la carpeta donde vamos a montar wordpress en el cliente
+
+mkdir /var/www/html/wordpress
+
 #Creamos el punto de montaje en el cliente 
 mount 52.91.77.158:/var/www/html/wordpress /var/www/html/wordpress
 

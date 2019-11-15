@@ -32,7 +32,7 @@ sed -i 's/'localhost'/'52.91.57.43'/' wp-config.php
 #Damos permisos de lectura al fichero de configuracion.
 chmod +x wp-config.php 
 
-#Introducir las siguientes lineas.
+#Introducir las siguientes lineas. la ip del balanceador
 echo "define( 'WP_SITEURL', 'http://3.86.112.221/wordpress' );" >> wp-config.php
 echo "define( 'WP_HOME', 'http://3.86.112.221' );" >> wp-config.php
 
@@ -42,7 +42,7 @@ cp /var/www/html/worpress/index.php ../
 # a continuacion reempleazamos el contenido del index.php que esta fuera
 sed -i 's#wp-blog-header.php#/wordpress/wp-blog-header.php#' /var/www/html/index.php
 
-#Añadimos la siguiente línea al archivo exports
+#Añadimos la siguiente línea al archivo exports la ip del cliente
 echo "/var/www/html/wordpress      3.94.10.1(rw,sync,no_root_squash,no_subtree_check)" >> /etc/exports
 
 # Security Keys
