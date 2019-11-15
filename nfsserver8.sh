@@ -2,7 +2,7 @@
 set -x
 
 #Instalación de paquetes necesarios en el servidor NFS:
-apt-get update
+#apt-get update
 apt-get install nfs-kernel-server -y
 
 #Entramos en html
@@ -13,6 +13,11 @@ wget https://es.wordpress.org/latest-es_ES.tar.gz
 
 # Descomprimimos el rar
 tar -xzvf latest-es_ES.tar.gz 
+
+# borramos wordpress y sacamos todo 
+mv /var/www/html/wordpress/* /var/www/html
+
+rm /var/www/html/wordpress
 
 #Cambiamos el propietario del repositorio
 chown www-data:www-data * -R
@@ -33,14 +38,14 @@ sed -i 's/'localhost'/'52.91.57.43'/' wp-config.php
 chmod +x wp-config.php 
 
 #Introducir las siguientes lineas. la ip del balanceador
-echo "define( 'WP_SITEURL', 'http://3.86.112.221/wordpress' );" >> wp-config.php
+echo "define( 'WP_SITEURL', 'http://3.86.112.221' );" >> wp-config.php
 echo "define( 'WP_HOME', 'http://3.86.112.221' );" >> wp-config.php
 
 #movemos el index.php a la carpeta html lo cambiamos a un directorio que no es la raiz
-cp /var/www/html/worpress/index.php ../
+#cp /var/www/html/worpress/index.php ../
 
 # a continuacion reempleazamos el contenido del index.php que esta fuera
-sed -i 's#wp-blog-header.php#/wordpress/wp-blog-header.php#' /var/www/html/index.php
+#sed -i 's#wp-blog-header.php#/wordpress/wp-blog-header.php#' /var/www/html/index.php
 
 #Añadimos la siguiente línea al archivo exports la ip del cliente
 echo "/var/www/html/wordpress      3.94.10.1(rw,sync,no_root_squash,no_subtree_check)" >> /etc/exports
