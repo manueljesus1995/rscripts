@@ -27,6 +27,15 @@ cd /home/ubuntu
 #Movemos el archivo htaccess
 #mv /archivo-conf-balanceador/htaccess /var/www/html/.htaccess
 
+#ejecucion del cliente servidor
+
+cd $HOME/scripst.sh
+if [ $1 = "server" ];
+    then ./nfsserver8.sh
+elif [ $1= "client" ];
+    then ./nfclientep8.sh
+fi
+
 #Reiniciamos Apache.
 systemctl restart apache2
 
